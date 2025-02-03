@@ -1,22 +1,12 @@
 package ru.yandex.praktikum;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.praktikum.pageobject.*;
-import org.junit.Assert;
-
-import java.time.Duration;
 
 @RunWith(Parameterized.class)
 public class Orders {
@@ -59,6 +49,8 @@ public class Orders {
         factory.initDriver();
     }
 
+    private WebDriver driver;
+
     @Test
     public void checkMakeOrderWithHeader() throws InterruptedException {
         WebDriver driver = factory.getDriver();
@@ -83,9 +75,6 @@ public class Orders {
         orderPage.selectMetroStation(metroStationId);
         //Ввести телефон
         orderPage.enterPhoneNumber(phoneNumber);
-
-        Thread.sleep(5000);
-
         //Нажать на кнопку Далее
         orderPage.clickContinueButton();
         //Дождаться отображения формы Про аренду
@@ -98,18 +87,13 @@ public class Orders {
         orderPage.selectScooterColour(scooterColour);
         //Добавить комментарий
         orderPage.enterCommentToCourier(commentToCourier);
-
-        Thread.sleep(5000);
-
         //Нажать на кнопку Заказать
         orderPage.clickOrderButton();
         //Подтвердить заказ
         ConfirmOrderPage confirmOrderPage = new ConfirmOrderPage(driver);
         confirmOrderPage.confirmOrder();
         //Проверка
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']")));
-        Assert.assertTrue(driver.findElement(By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']")).isDisplayed());
+        confirmOrderPage.checkSuccessfulOrderMessage();
     }
 
     @Test
@@ -136,9 +120,6 @@ public class Orders {
         orderPage.selectMetroStation(metroStationId);
         //Ввести телефон
         orderPage.enterPhoneNumber(phoneNumber);
-
-        Thread.sleep(5000);
-
         //Нажать на кнопку Далее
         orderPage.clickContinueButton();
         //Дождаться отображения формы Про аренду
@@ -151,18 +132,13 @@ public class Orders {
         orderPage.selectScooterColour(scooterColour);
         //Добавить комментарий
         orderPage.enterCommentToCourier(commentToCourier);
-
-        Thread.sleep(5000);
-
         //Нажать на кнопку Заказать
         orderPage.clickOrderButton();
         //Подтвердить заказ
         ConfirmOrderPage confirmOrderPage = new ConfirmOrderPage(driver);
         confirmOrderPage.confirmOrder();
         //Проверка
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ']")));
-        Assert.assertTrue(driver.findElement(By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ']")).isDisplayed());
+        confirmOrderPage.checkSuccessfulOrderMessage();
     }
 
     @After

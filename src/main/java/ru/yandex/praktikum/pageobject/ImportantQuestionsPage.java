@@ -15,14 +15,24 @@ public class ImportantQuestionsPage {
         this.driver = driver;
     }
 
+    //Локаторы
+    //Вопросы
+    private final By question = By.id("accordion__heading-");
+    private final String questionStr = "accordion__heading-";
+
+    //Ответы
+    private final By answer = By.id("accordion__panel-");
+    private final String answerStr = "accordion__panel-";
+
     //Методы
     //Получить ответ на вопрос
+
     public String getAnswerToQuestion(String questionNumber) {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='accordion__heading-" + questionNumber + "']")));
-        driver.findElement(By.xpath(".//div[@id='accordion__heading-" + questionNumber + "']")).click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='accordion__panel-" + questionNumber + "']")));
-        return driver.findElement(By.xpath(".//div[@id='accordion__panel-" + questionNumber + "']")).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id(questionStr + questionNumber)));
+        driver.findElement(By.id(questionStr + questionNumber)).click();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id(answerStr + questionNumber)));
+        return driver.findElement(By.id(answerStr + questionNumber)).getText();
     }
 }

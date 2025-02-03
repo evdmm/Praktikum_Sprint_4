@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import org.junit.Assert;
+
+
 import java.time.Duration;
 
 public class ConfirmOrderPage {
@@ -32,11 +35,10 @@ public class ConfirmOrderPage {
     }
 
     //Отображение сообщения об успешном создании заказа
-    public void viewSuccessfulOrderMessage() {
+    public void checkSuccessfulOrderMessage() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(successfulOrderMessage));
-
-
+        Assert.assertTrue(driver.findElement(successfulOrderMessage).isDisplayed());
     }
 
 

@@ -1,7 +1,6 @@
 package ru.yandex.praktikum;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -30,7 +29,8 @@ public class DriverFactory {
 
     public void startUpFirefox() {
         WebDriverManager.firefoxdriver().setup();
-        var opts = new FirefoxOptions().configureFromEnv();
+//        var opts = new FirefoxOptions().configureFromEnv();
+        var opts = new FirefoxOptions().setBinary("/Applications/Firefox.app/Contents/MacOS/firefox");
         driver = new FirefoxDriver(opts);
     }
 }

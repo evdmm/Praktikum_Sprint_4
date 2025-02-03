@@ -14,8 +14,6 @@ public class HeaderPage {
     //Локаторы
     //Кнопка Заказать
     private final By orderButton = By.xpath(".//button[@class='Button_Button__ra12g']");
-//    private final By orderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']");
-
 
     public HeaderPage(WebDriver driver) {
         this.driver = driver;
